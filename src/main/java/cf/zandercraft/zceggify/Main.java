@@ -28,7 +28,7 @@ public final class Main extends JavaPlugin {
         saveDefaultConfig();
         try {
             String nmsVersion = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            nmsHook = Class.forName("cf.zandercraft.zceggify.nms.NMS_" + nmsVersion).newInstance();
+            nmsHook = (NMSHook) Class.forName("cf.zandercraft.zceggify.nms.NMS_" + nmsVersion).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             getLogger().severe("Failed to initialize NMS hooks - This plugin may not be compatible with your server version");
             Bukkit.getPluginManager().disablePlugin(this);
