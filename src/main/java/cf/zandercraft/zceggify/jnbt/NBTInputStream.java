@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.sk89q.jnbt;
+package cf.zandercraft.zceggify.jnbt;
 
 import java.io.Closeable;
 import java.io.DataInputStream;
