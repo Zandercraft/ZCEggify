@@ -1,5 +1,6 @@
 package cf.zandercraft.zceggify.nms;
 
+import cf.zandercraft.zceggify.jnbt.CompoundTag;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
