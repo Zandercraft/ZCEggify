@@ -1,4 +1,5 @@
-# mobcapture
+# ZCEggitfy
+Based off of MobCapture.
 See MobCapture on SpigotMC to see additional information. 
 https://www.spigotmc.org/resources/mobcapture.47337
 
