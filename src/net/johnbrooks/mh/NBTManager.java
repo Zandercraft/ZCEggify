@@ -146,15 +146,15 @@ public class NBTManager {
             Sheep sheep = (Sheep) livingEntity;
             sheep.setSheared(entityDetails.getBoolean("sheared"));
             sheep.setColor(DyeColor.valueOf(entityDetails.getString("color")));
-        } else if (livingEntity instanceof Ocelot) {
-            Ocelot ocelot = (Ocelot) livingEntity;
-            ocelot.setTamed(entityDetails.getBoolean("tamed"));
-            ocelot.setSitting(entityDetails.getBoolean("sitting"));
-            if (ocelot.isTamed()) {
-                ocelot.setCatType(Ocelot.Type.valueOf(entityDetails.getString("cat type")));
+        } else if (livingEntity instanceof Cat) {
+            Cat cat = (Cat) livingEntity;
+            cat.setTamed(entityDetails.getBoolean("tamed"));
+            cat.setSitting(entityDetails.getBoolean("sitting"));
+            if (cat.isTamed()) {
+                cat.setCatType(Cat.Type.valueOf(entityDetails.getString("cat type")));
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(entityDetails.getString("owner")));
                 if (offlinePlayer != null)
-                    ocelot.setOwner(offlinePlayer);
+                    cat.setOwner(offlinePlayer);
             }
         } else if (livingEntity instanceof Rabbit) {
             Rabbit rabbit = (Rabbit) livingEntity;
