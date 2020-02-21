@@ -3,7 +3,7 @@ Based off of MobCapture.
 See MobCapture on SpigotMC to see additional information. 
 https://www.spigotmc.org/resources/mobcapture.47337
 
-With ZCEggify you are able to throw a projectile of your choice when capturing a mob. This feature also extends to Arrows if you so choose.
+With ZCEggify you are able to capture mobs by hitting them with an item, or by throwing a projectile at them.
 
 After your projectile hits your target, if you have the proper permissions the mob will turn into a special spawn egg. This spawn egg saves all forms of data concerning this mob (All that I could think to add).
 
