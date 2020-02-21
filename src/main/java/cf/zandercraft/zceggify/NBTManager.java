@@ -1,6 +1,6 @@
-package net.johnbrooks.mh;
+package cf.zandercraft.zceggify;
 
-import net.johnbrooks.mh.items.CaptureEgg;
+import cf.zandercraft.zceggify.items.CaptureEgg;
 import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.*;
 import org.bukkit.Material;
@@ -96,7 +96,7 @@ public class NBTManager {
 //            if (color != null)
 //                potionEffect = new PotionEffect(potionEffectType, duration, amplifier, isAmbient, hasParticles, true);
 //            else
-                potionEffect = new PotionEffect(potionEffectType, duration, amplifier, isAmbient, hasParticles);
+            potionEffect = new PotionEffect(potionEffectType, duration, amplifier, isAmbient, hasParticles);
             livingEntity.addPotionEffect(potionEffect);
         }
 
@@ -137,7 +137,7 @@ public class NBTManager {
                         wolf.setOwner(offlinePlayer);
                         wolf.setCollarColor(DyeColor.valueOf(color));
                     }
-            }
+                }
                 break;
             case PIG:
                 Pig pig = (Pig) livingEntity;
@@ -164,7 +164,7 @@ public class NBTManager {
                 Rabbit rabbit = (Rabbit) livingEntity;
                 rabbit.setRabbitType(Rabbit.Type.valueOf(entityDetails.getString("rabbit type")));
                 break;
-            case ABSTRACTHORSE: 
+            case ABSTRACTHORSE:
                 AbstractHorse abstractHorse = (AbstractHorse) livingEntity;
                 abstractHorse.setJumpStrength(entityDetails.getDouble("jump strength"));
                 abstractHorse.setTamed(entityDetails.getBoolean("tamed"));

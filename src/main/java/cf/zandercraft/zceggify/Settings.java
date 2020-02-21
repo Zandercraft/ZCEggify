@@ -1,7 +1,7 @@
-package net.johnbrooks.mh;
+package cf.zandercraft.zceggify;
 
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
-import net.johnbrooks.mh.items.UniqueProjectileData;
+import cf.zandercraft.zceggify.items.UniqueProjectileData;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;

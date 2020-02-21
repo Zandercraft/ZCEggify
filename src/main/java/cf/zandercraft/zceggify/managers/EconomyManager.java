@@ -1,8 +1,8 @@
-package net.johnbrooks.mh.managers;
+package cf.zandercraft.zceggify.managers;
 
-import net.johnbrooks.mh.Language;
-import net.johnbrooks.mh.Main;
-import net.johnbrooks.mh.Settings;
+import cf.zandercraft.zceggify.Language;
+import cf.zandercraft.zceggify.Main;
+import cf.zandercraft.zceggify.Settings;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

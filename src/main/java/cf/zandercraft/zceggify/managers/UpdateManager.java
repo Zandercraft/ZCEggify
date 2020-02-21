@@ -1,6 +1,6 @@
-package net.johnbrooks.mh.managers;
+package cf.zandercraft.zceggify.managers;
 
-import net.johnbrooks.mh.Main;
+import cf.zandercraft.zceggify.Main;
 
 import java.io.File;
 import java.io.IOException;

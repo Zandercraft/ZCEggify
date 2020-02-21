@@ -1,6 +1,6 @@
-package net.johnbrooks.mh.items;
+package cf.zandercraft.zceggify.items;
 
-import net.johnbrooks.mh.NBTManager;
+import cf.zandercraft.zceggify.NBTManager;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.entity.*;

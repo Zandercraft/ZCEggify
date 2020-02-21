@@ -1,6 +1,6 @@
-package net.johnbrooks.mh.items;
+package cf.zandercraft.zceggify.items;
 
-import net.johnbrooks.mh.Settings;
+import cf.zandercraft.zceggify.Settings;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

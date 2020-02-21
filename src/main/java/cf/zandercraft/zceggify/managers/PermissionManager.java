@@ -1,13 +1,13 @@
-package net.johnbrooks.mh.managers;
+package cf.zandercraft.zceggify.managers;
 
-import net.johnbrooks.mh.Main;
+import cf.zandercraft.zceggify.Main;
 import org.bukkit.entity.*;
 
 public class PermissionManager {
     public final String NoCost = Main.plugin.getName() + ".NoCost";
     public final String CatchPrefix = Main.plugin.getName() + ".Catch.";
-    public final String CatchPeaceful = "MobCapture.Catch.Peaceful";
-    public final String CatchHostile = "MobCapture.Catch.Hostile";
+    public final String CatchPeaceful = "ZCEggify.Catch.Peaceful";
+    public final String CatchHostile = "ZCEggify.Catch.Hostile";
 
     public boolean hasPermissionToCapture(Player player, LivingEntity livingEntity) {
         if (livingEntity instanceof Monster && player.hasPermission(CatchHostile)) {

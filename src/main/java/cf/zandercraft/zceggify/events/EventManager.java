@@ -1,14 +1,14 @@
-package net.johnbrooks.mh.events;
+package cf.zandercraft.zceggify.events;
 
-import net.johnbrooks.mh.*;
-import net.johnbrooks.mh.events.custom.CreatureCaptureEvent;
-import net.johnbrooks.mh.events.custom.CreatureReleaseEvent;
-import net.johnbrooks.mh.items.CaptureEgg;
+import cf.zandercraft.zceggify.*;
+import cf.zandercraft.zceggify.events.custom.CreatureCaptureEvent;
+import cf.zandercraft.zceggify.events.custom.CreatureReleaseEvent;
+import cf.zandercraft.zceggify.items.CaptureEgg;
 
 import java.util.Random;
 
-import net.johnbrooks.mh.items.UniqueProjectileData;
-import net.johnbrooks.mh.managers.EconomyManager;
+import cf.zandercraft.zceggify.items.UniqueProjectileData;
+import cf.zandercraft.zceggify.managers.EconomyManager;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.*;
