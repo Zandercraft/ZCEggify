@@ -120,119 +120,130 @@ public class NBTManager {
             }
         }
 
-        if (livingEntity instanceof Wolf) {
-            // Is a wolf
-            Wolf wolf = (Wolf) livingEntity;
-            wolf.setSitting(entityDetails.getBoolean("is sitting"));
-            wolf.setAngry(entityDetails.getBoolean("is angry"));
-            boolean tamed = entityDetails.getBoolean("is tamed");
-            wolf.setTamed(tamed);
+        switch (livingEntity.getType()) {
+            case WOLF:
+                // Is a wolf
+                Wolf wolf = (Wolf) livingEntity;
+                wolf.setSitting(entityDetails.getBoolean("is sitting"));
+                wolf.setAngry(entityDetails.getBoolean("is angry"));
+                boolean tamed = entityDetails.getBoolean("is tamed");
+                wolf.setTamed(tamed);
 
-            if (tamed)
-            {
-                String ownerUUID = entityDetails.getString("owner");
-                String color = entityDetails.getString("color");
-                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(ownerUUID));
-                if (offlinePlayer != null)
-                {
-                    wolf.setOwner(offlinePlayer);
-                    wolf.setCollarColor(DyeColor.valueOf(color));
+                if (tamed) {
+                    String ownerUUID = entityDetails.getString("owner");
+                    String color = entityDetails.getString("color");
+                    OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(ownerUUID));
+                    if (offlinePlayer != null) {
+                        wolf.setOwner(offlinePlayer);
+                        wolf.setCollarColor(DyeColor.valueOf(color));
+                    }
+            }
+                break;
+            case PIG:
+                Pig pig = (Pig) livingEntity;
+                pig.setSaddle(entityDetails.getBoolean("saddled"));
+                break;
+            case SHEEP:
+                Sheep sheep = (Sheep) livingEntity;
+                sheep.setSheared(entityDetails.getBoolean("sheared"));
+                sheep.setColor(DyeColor.valueOf(entityDetails.getString("color")));
+                break;
+            case CAT:
+                Cat cat = (Cat) livingEntity;
+                cat.setTamed(entityDetails.getBoolean("tamed"));
+                cat.setSitting(entityDetails.getBoolean("sitting"));
+                if (cat.isTamed()) {
+                    cat.setCatType(Cat.Type.valueOf(entityDetails.getString("cat type")));
+                    OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(entityDetails.getString("owner")));
+                    if (offlinePlayer != null) {
+                        cat.setOwner(offlinePlayer);
+                    }
                 }
-            }
-        } else if (livingEntity instanceof Pig) {
-            Pig pig = (Pig) livingEntity;
-            pig.setSaddle(entityDetails.getBoolean("saddled"));
-        } else if (livingEntity instanceof Sheep) {
-            Sheep sheep = (Sheep) livingEntity;
-            sheep.setSheared(entityDetails.getBoolean("sheared"));
-            sheep.setColor(DyeColor.valueOf(entityDetails.getString("color")));
-        } else if (livingEntity instanceof Cat) {
-            Cat cat = (Cat) livingEntity;
-            cat.setTamed(entityDetails.getBoolean("tamed"));
-            cat.setSitting(entityDetails.getBoolean("sitting"));
-            if (cat.isTamed()) {
-                cat.setCatType(Cat.Type.valueOf(entityDetails.getString("cat type")));
-                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(entityDetails.getString("owner")));
-                if (offlinePlayer != null)
-                    cat.setOwner(offlinePlayer);
-            }
-        } else if (livingEntity instanceof Rabbit) {
-            Rabbit rabbit = (Rabbit) livingEntity;
-            rabbit.setRabbitType(Rabbit.Type.valueOf(entityDetails.getString("rabbit type")));
-        } else if (livingEntity instanceof AbstractHorse) {
-            AbstractHorse abstractHorse = (AbstractHorse) livingEntity;
-            abstractHorse.setJumpStrength(entityDetails.getDouble("jump strength"));
-            abstractHorse.setTamed(entityDetails.getBoolean("tamed"));
-            abstractHorse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(entityDetails.getDouble("speed"));
-            //TODO: INVENTORY CONTENTS
-        }
-        else if (livingEntity instanceof Villager) {
-            //1) Get basic villager data.
-            Villager villager = (Villager) livingEntity;
-            villager.setProfession(Villager.Profession.valueOf(entityDetails.getString("profession")));
-            villager.setRiches(entityDetails.getInt("riches"));
+                break;
+            case RABBIT:
+                Rabbit rabbit = (Rabbit) livingEntity;
+                rabbit.setRabbitType(Rabbit.Type.valueOf(entityDetails.getString("rabbit type")));
+                break;
+            case ABSTRACTHORSE: 
+                AbstractHorse abstractHorse = (AbstractHorse) livingEntity;
+                abstractHorse.setJumpStrength(entityDetails.getDouble("jump strength"));
+                abstractHorse.setTamed(entityDetails.getBoolean("tamed"));
+                abstractHorse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(entityDetails.getDouble("speed"));
+                //TODO: INVENTORY CONTENTS
+                break;
+            case VILLAGER:
+                //1) Get basic villager data.
+                Villager villager = (Villager) livingEntity;
+                villager.setProfession(Villager.Profession.valueOf(entityDetails.getString("profession")));
+                villager.setRiches(entityDetails.getInt("riches"));
 
-            //2) Grab the recipe list.
-            NBTTagList recipeList = entityDetails.getList("recipes", ListType.COMPOUND.ordinal());
+                //2) Grab the recipe list.
+                NBTTagList recipeList = entityDetails.getList("recipes", ListType.COMPOUND.ordinal());
 
-            //3) Prepare an ArrayList for recipe list that will be stored in Villager.
-            List<org.bukkit.inventory.MerchantRecipe> merchantRecipeList = new ArrayList<>();
-            for (int i = 0; i < recipeList.size(); i++)
-            {
-                //4) Parse the recipe list.
-                NBTTagCompound recipeCompound = recipeList.getCompound(i);
-                int uses = recipeCompound.getInt("uses");
-                int maxUses = recipeCompound.getInt("max uses");
-                boolean experienceReward = recipeCompound.getBoolean("experience reward");
-                String[] resultString = recipeCompound.getString("result").split("\\.");
-                NBTTagCompound resultTags = recipeCompound.getCompound("result tags");
-                NBTTagList materialsAndAmount = recipeCompound.getList("materials", ListType.STRING.ordinal());
-                NBTTagList tagList = recipeCompound.getList("tags", ListType.COMPOUND.ordinal());
-
-                //5) Set the resulted item stack to its proper NBT tags.
-                ItemStack resultItemStack = new ItemStack(Material.valueOf(resultString[0]), Integer.parseInt(resultString[1]));
-                net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(resultItemStack);
-                nmsStack.setTag(resultTags);
-                resultItemStack = CraftItemStack.asBukkitCopy(nmsStack);
-
-                //6) Register the recipes.
-                org.bukkit.inventory.MerchantRecipe merchantRecipe = new org.bukkit.inventory.MerchantRecipe(resultItemStack, maxUses);
-                merchantRecipe.setUses(uses);
-                merchantRecipe.setExperienceReward(experienceReward);
-                List<ItemStack> ingredients = new ArrayList<>();
-                for (int j = 0; j < materialsAndAmount.size(); j++)
+                //3) Prepare an ArrayList for recipe list that will be stored in Villager.
+                List<org.bukkit.inventory.MerchantRecipe> merchantRecipeList = new ArrayList<>();
+                for (int i = 0; i < recipeList.size(); i++)
                 {
-                    String[] ingredient = materialsAndAmount.getString(j).split("\\.");
-                    NBTTagCompound tags = tagList.getCompound(j);
-                    ItemStack itemStack = new ItemStack(Material.valueOf(ingredient[0]), Integer.parseInt(ingredient[1]));
-                    net.minecraft.server.v1_15_R1.ItemStack nmsIngredientStack = CraftItemStack.asNMSCopy(itemStack);
-                    nmsIngredientStack.setTag(tags);
-                    itemStack = CraftItemStack.asBukkitCopy(nmsIngredientStack);
-                    ingredients.add(itemStack);
+                    //4) Parse the recipe list.
+                    NBTTagCompound recipeCompound = recipeList.getCompound(i);
+                    int uses = recipeCompound.getInt("uses");
+                    int maxUses = recipeCompound.getInt("max uses");
+                    boolean experienceReward = recipeCompound.getBoolean("experience reward");
+                    String[] resultString = recipeCompound.getString("result").split("\\.");
+                    NBTTagCompound resultTags = recipeCompound.getCompound("result tags");
+                    NBTTagList materialsAndAmount = recipeCompound.getList("materials", ListType.STRING.ordinal());
+                    NBTTagList tagList = recipeCompound.getList("tags", ListType.COMPOUND.ordinal());
+
+                    //5) Set the resulted item stack to its proper NBT tags.
+                    ItemStack resultItemStack = new ItemStack(Material.valueOf(resultString[0]), Integer.parseInt(resultString[1]));
+                    net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(resultItemStack);
+                    nmsStack.setTag(resultTags);
+                    resultItemStack = CraftItemStack.asBukkitCopy(nmsStack);
+
+                    //6) Register the recipes.
+                    org.bukkit.inventory.MerchantRecipe merchantRecipe = new org.bukkit.inventory.MerchantRecipe(resultItemStack, maxUses);
+                    merchantRecipe.setUses(uses);
+                    merchantRecipe.setExperienceReward(experienceReward);
+                    List<ItemStack> ingredients = new ArrayList<>();
+                    for (int j = 0; j < materialsAndAmount.size(); j++)
+                    {
+                        String[] ingredient = materialsAndAmount.getString(j).split("\\.");
+                        NBTTagCompound tags = tagList.getCompound(j);
+                        ItemStack itemStack = new ItemStack(Material.valueOf(ingredient[0]), Integer.parseInt(ingredient[1]));
+                        net.minecraft.server.v1_15_R1.ItemStack nmsIngredientStack = CraftItemStack.asNMSCopy(itemStack);
+                        nmsIngredientStack.setTag(tags);
+                        itemStack = CraftItemStack.asBukkitCopy(nmsIngredientStack);
+                        ingredients.add(itemStack);
+                    }
+                    merchantRecipe.setIngredients(ingredients);
+                    merchantRecipeList.add(merchantRecipe);
                 }
-                merchantRecipe.setIngredients(ingredients);
-                merchantRecipeList.add(merchantRecipe);
-            }
 
-            //4) Input the recipe list into the villager
-            villager.setRecipes(merchantRecipeList);
-        } else if (livingEntity instanceof Creeper) {
-            ((Creeper) livingEntity).setPowered(entityDetails.getBoolean("charged"));
-        } else if (livingEntity instanceof Slime) {
-            ((Slime) livingEntity).setSize(entityDetails.getInt("size"));
-        } else if (livingEntity instanceof ZombieVillager) {
-            ZombieVillager zombieVillager = (ZombieVillager) livingEntity;
-            zombieVillager.setVillagerProfession(Villager.Profession.valueOf(entityDetails.getString("profession")));
-        } else if (livingEntity instanceof Parrot) {
-            ((Parrot) livingEntity).setVariant(Parrot.Variant.valueOf(entityDetails.getString("variant")));
-        } else if (livingEntity instanceof Llama) {
-            Integer strength = entityDetails.getInt("strength");
-            Llama.Color color = Llama.Color.valueOf(entityDetails.getString("color"));
+                //4) Input the recipe list into the villager
+                villager.setRecipes(merchantRecipeList);
+                break;
+            case CREEPER:
+                ((Creeper) livingEntity).setPowered(entityDetails.getBoolean("charged"));
+                break;
+            case SLIME:
+                ((Slime) livingEntity).setSize(entityDetails.getInt("size"));
+                break;
+            case ZOMBIEVILLAGER:
+                ZombieVillager zombieVillager = (ZombieVillager) livingEntity;
+                zombieVillager.setVillagerProfession(Villager.Profession.valueOf(entityDetails.getString("profession")));
+                break;
+            case PARROT:
+                ((Parrot) livingEntity).setVariant(Parrot.Variant.valueOf(entityDetails.getString("variant")));
+                break;
+            case LLAMA:
+                Integer strength = entityDetails.getInt("strength");
+                Llama.Color color = Llama.Color.valueOf(entityDetails.getString("color"));
 
 
-            Llama llama = (Llama) livingEntity;
-            llama.setStrength(strength);
-            llama.setColor(color);
+                Llama llama = (Llama) livingEntity;
+                llama.setStrength(strength);
+                llama.setColor(color);
+                break;
         }
 
         if (livingEntity instanceof InventoryHolder) {
@@ -454,13 +465,13 @@ public class NBTManager {
 
             boolean saddled = pig.hasSaddle();
             entityDetails.setBoolean("saddled", saddled);
-        } else if (livingEntity instanceof Ocelot) {
-            Ocelot ocelot = (Ocelot) livingEntity;
-            entityDetails.setBoolean("tamed", ocelot.isTamed());
-            entityDetails.setBoolean("sitting", ocelot.isSitting());
-            if (ocelot.isTamed()) {
-                String catType = ocelot.getCatType().name();
-                String ownerUUID = ocelot.getOwner().getUniqueId().toString();
+        } else if (livingEntity instanceof Cat) {
+            Cat cat = (Cat) livingEntity;
+            entityDetails.setBoolean("tamed", cat.isTamed());
+            entityDetails.setBoolean("sitting", cat.isSitting());
+            if (cat.isTamed()) {
+                String catType = cat.getCatType().name();
+                String ownerUUID = cat.getOwner().getUniqueId().toString();
                 entityDetails.setString("cat type", catType);
                 entityDetails.setString("owner", ownerUUID);
             }
