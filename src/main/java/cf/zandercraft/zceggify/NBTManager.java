@@ -244,6 +244,10 @@ public class NBTManager {
                 llama.setStrength(strength);
                 llama.setColor(color);
                 break;
+            case FOX:
+                Fox fox = (Fox) livingEntity;
+                fox.setFoxType(Fox.Type.valueOf(entityDetails.getString("fox type")));
+                break;
         }
 
         if (livingEntity instanceof InventoryHolder) {
@@ -460,6 +464,9 @@ public class NBTManager {
 
             entityDetails.set("color", new NBTTagString(color));
             entityDetails.setBoolean("sheared", sheared);
+        } else if (livingEntity instanceof Fox) {
+            Fox fox = (Fox) livingEntity;
+            entityDetails.setString("fox type", fox.getFoxType().name());
         } else if (livingEntity instanceof Pig) {
             Pig pig = (Pig) livingEntity;
 
@@ -488,7 +495,6 @@ public class NBTManager {
         } else if (livingEntity instanceof Villager) {
             Villager villager = (Villager) livingEntity;
             String profession = villager.getProfession().name();
-            int riches = villager.getRiches();
 
             NBTTagList recipeList = new NBTTagList();
             for (org.bukkit.inventory.MerchantRecipe recipe : villager.getRecipes()) {
@@ -524,7 +530,6 @@ public class NBTManager {
             }
 
             entityDetails.setString("profession", profession);
-            entityDetails.setInt("riches", riches);
             entityDetails.set("recipes", recipeList);
         } else if (livingEntity instanceof Creeper) {
             Creeper creeper = (Creeper) livingEntity;
