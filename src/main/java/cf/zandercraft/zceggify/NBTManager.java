@@ -437,113 +437,122 @@ public class NBTManager {
             entityDetails.set("inventory nbt tags", tagList);
         }
 
-        // Wolf
-        if (livingEntity instanceof Wolf) {
-            // Basic wolf data
-            Wolf wolf = (Wolf) livingEntity;
-            boolean isAngry = wolf.isAngry();
-            boolean isSitting = wolf.isSitting();
-            boolean isTamed = wolf.isTamed();
 
-            entityDetails.setBoolean("is angry", isAngry);
-            entityDetails.setBoolean("is sitting", isSitting);
-            entityDetails.setBoolean("is tamed", isTamed);
-            if (isTamed) {
-                // Tamed wolf data
-                String color = wolf.getCollarColor().name();
-                String ownerUUID = wolf.getOwner().getUniqueId().toString();
+        switch(livingEntity.getType()) {
+            case WOLF:
+                Wolf wolf = (Wolf) livingEntity;
+                boolean isAngry = wolf.isAngry();
+                boolean isSitting = wolf.isSitting();
+                boolean isTamed = wolf.isTamed();
+
+                entityDetails.setBoolean("is angry", isAngry);
+                entityDetails.setBoolean("is sitting", isSitting);
+                entityDetails.setBoolean("is tamed", isTamed);
+                if (isTamed) {
+                    // Tamed wolf data
+                    String color = wolf.getCollarColor().name();
+                    String ownerUUID = wolf.getOwner().getUniqueId().toString();
+
+                    entityDetails.set("color", new NBTTagString(color));
+                    entityDetails.set("owner", new NBTTagString(ownerUUID));
+                }
+                break;
+            case SHEEP:
+                Sheep sheep = (Sheep) livingEntity;
+                boolean sheared = sheep.isSheared();
+                String color = sheep.getColor().name();
 
                 entityDetails.set("color", new NBTTagString(color));
-                entityDetails.set("owner", new NBTTagString(ownerUUID));
-            }
-        } else if (livingEntity instanceof Sheep) {
-            Sheep sheep = (Sheep) livingEntity;
-            boolean sheared = sheep.isSheared();
-            String color = sheep.getColor().name();
+                entityDetails.setBoolean("sheared", sheared);
+                break;
+            case FOX:
+                Fox fox = (Fox) livingEntity;
+                entityDetails.setString("fox type", fox.getFoxType().name());
+                break;
+            case PIG:
+                Pig pig = (Pig) livingEntity;
 
-            entityDetails.set("color", new NBTTagString(color));
-            entityDetails.setBoolean("sheared", sheared);
-        } else if (livingEntity instanceof Fox) {
-            Fox fox = (Fox) livingEntity;
-            entityDetails.setString("fox type", fox.getFoxType().name());
-        } else if (livingEntity instanceof Pig) {
-            Pig pig = (Pig) livingEntity;
-
-            boolean saddled = pig.hasSaddle();
-            entityDetails.setBoolean("saddled", saddled);
-        } else if (livingEntity instanceof Cat) {
-            Cat cat = (Cat) livingEntity;
-            entityDetails.setBoolean("tamed", cat.isTamed());
-            entityDetails.setBoolean("sitting", cat.isSitting());
-            if (cat.isTamed()) {
-                String catType = cat.getCatType().name();
-                String ownerUUID = cat.getOwner().getUniqueId().toString();
-                entityDetails.setString("cat type", catType);
-                entityDetails.setString("owner", ownerUUID);
-            }
-        } else if (livingEntity instanceof Rabbit) {
-            entityDetails.setString("rabbit type", ((Rabbit) livingEntity).getRabbitType().name());
-        } else if (livingEntity instanceof AbstractHorse) {
-            AbstractHorse abstractHorse = (AbstractHorse) livingEntity;
-            double jumpStrength = abstractHorse.getJumpStrength();
-            double speed = livingEntity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
-
-            entityDetails.setDouble("jump strength", jumpStrength);
-            entityDetails.setDouble("speed", speed);
-
-        } else if (livingEntity instanceof Villager) {
-            Villager villager = (Villager) livingEntity;
-            String profession = villager.getProfession().name();
-
-            NBTTagList recipeList = new NBTTagList();
-            for (org.bukkit.inventory.MerchantRecipe recipe : villager.getRecipes()) {
-                List<ItemStack> ingredients = recipe.getIngredients();
-                // Store the materials and amounts
-                NBTTagList materialsAndAmount = new NBTTagList(); // Holds materials and amount separated by "."
-                // Store the tags
-                NBTTagList itemStackTags = new NBTTagList();
-                for (ItemStack itemStack : ingredients) {
-                    materialsAndAmount.add(new NBTTagString(itemStack.getType().name() + "." + itemStack.getAmount()));
-
-                    net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(itemStack);
-                    NBTTagCompound itemStackCompound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-                    itemStackTags.add(itemStackCompound);
+                boolean saddled = pig.hasSaddle();
+                entityDetails.setBoolean("saddled", saddled);
+                break;
+            case CAT:
+                Cat cat = (Cat) livingEntity;
+                entityDetails.setBoolean("tamed", cat.isTamed());
+                entityDetails.setBoolean("sitting", cat.isSitting());
+                if (cat.isTamed()) {
+                    String catType = cat.getCatType().name();
+                    String ownerUUID = cat.getOwner().getUniqueId().toString();
+                    entityDetails.setString("cat type", catType);
+                    entityDetails.setString("owner", ownerUUID);
                 }
-                int uses = recipe.getUses();
-                int maxUses = recipe.getMaxUses();
-                boolean experienceReward = recipe.hasExperienceReward();
+                break;
+            case RABBIT:
+                entityDetails.setString("rabbit type", ((Rabbit) livingEntity).getRabbitType().name());
+                break;
+            case ABSTRACTHORSE:
+                AbstractHorse abstractHorse = (AbstractHorse) livingEntity;
+                double jumpStrength = abstractHorse.getJumpStrength();
+                double speed = livingEntity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
 
-                net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(recipe.getResult());
-                NBTTagCompound resultTags = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
+                entityDetails.setDouble("jump strength", jumpStrength);
+                entityDetails.setDouble("speed", speed);
+                break;
+            case VILLAGER:
+                Villager villager = (Villager) livingEntity;
+                String profession = villager.getProfession().name();
 
-                NBTTagCompound recipeCompound = new NBTTagCompound();
-                recipeCompound.setInt("uses", uses);
-                recipeCompound.setInt("max uses", maxUses);
-                recipeCompound.setBoolean("experience reward", experienceReward);
-                recipeCompound.setString("result", recipe.getResult().getType().name() + "." + recipe.getResult().getAmount());
-                recipeCompound.set("result tags", resultTags);
-                recipeCompound.set("materials", materialsAndAmount);
-                recipeCompound.set("tags", itemStackTags);
+                NBTTagList recipeList = new NBTTagList();
+                for (org.bukkit.inventory.MerchantRecipe recipe : villager.getRecipes()) {
+                    List<ItemStack> ingredients = recipe.getIngredients();
+                    // Store the materials and amounts
+                    NBTTagList materialsAndAmount = new NBTTagList(); // Holds materials and amount separated by "."
+                    // Store the tags
+                    NBTTagList itemStackTags = new NBTTagList();
+                    for (ItemStack itemStack : ingredients) {
+                        materialsAndAmount.add(new NBTTagString(itemStack.getType().name() + "." + itemStack.getAmount()));
 
-                recipeList.add(recipeCompound);
-            }
+                        net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(itemStack);
+                        NBTTagCompound itemStackCompound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
+                        itemStackTags.add(itemStackCompound);
+                    }
+                    int uses = recipe.getUses();
+                    int maxUses = recipe.getMaxUses();
+                    boolean experienceReward = recipe.hasExperienceReward();
 
-            entityDetails.setString("profession", profession);
-            entityDetails.set("recipes", recipeList);
-        } else if (livingEntity instanceof Creeper) {
-            Creeper creeper = (Creeper) livingEntity;
-            entityDetails.setBoolean("charged", creeper.isPowered());
-        } else if (livingEntity instanceof Slime) {
-            Slime slime = (Slime) livingEntity;
-            entityDetails.setInt("size", slime.getSize());
-        } else if (livingEntity instanceof ZombieVillager) {
-            ZombieVillager zombieVillager = (ZombieVillager) livingEntity;
-            String profession = zombieVillager.getVillagerProfession().name();
-            entityDetails.setString("profession", profession);
-        } else if (livingEntity instanceof Parrot) {
-            Parrot parrot = (Parrot) livingEntity;
-            Parrot.Variant color = parrot.getVariant();
-            entityDetails.setString("variant", color.name());
+                    net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(recipe.getResult());
+                    NBTTagCompound resultTags = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
+
+                    NBTTagCompound recipeCompound = new NBTTagCompound();
+                    recipeCompound.setInt("uses", uses);
+                    recipeCompound.setInt("max uses", maxUses);
+                    recipeCompound.setBoolean("experience reward", experienceReward);
+                    recipeCompound.setString("result", recipe.getResult().getType().name() + "." + recipe.getResult().getAmount());
+                    recipeCompound.set("result tags", resultTags);
+                    recipeCompound.set("materials", materialsAndAmount);
+                    recipeCompound.set("tags", itemStackTags);
+
+                    recipeList.add(recipeCompound);
+                }
+
+                entityDetails.setString("profession", profession);
+                entityDetails.set("recipes", recipeList);
+                break;
+            case CREEPER:
+                Creeper creeper = (Creeper) livingEntity;
+                entityDetails.setBoolean("charged", creeper.isPowered());
+                break;
+            case SLIME:
+                Slime slime = (Slime) livingEntity;
+                entityDetails.setInt("size", slime.getSize());
+            case ZOMBIE_VILLAGER:
+                ZombieVillager zombieVillager = (ZombieVillager) livingEntity;
+                String profession = zombieVillager.getVillagerProfession().name();
+                entityDetails.setString("profession", profession);
+                break;
+            case PARROT:
+                Parrot parrot = (Parrot) livingEntity;
+                Parrot.Variant color = parrot.getVariant();
+                entityDetails.setString("variant", color.name());
         }
 
         if (livingEntity instanceof Tameable) {
