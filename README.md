@@ -28,4 +28,8 @@ Payment for capturing a mob can be either in the form of items or money. See the
 -  Optional Coloured-Eggs.
   
 -  Permission-based capturing.
-  
+
+## Credit
+A big thanks to
+- WiseHollow - Original Developer
+- The WorldEdit team - Some classes were used from the WorldEdit plugin.
