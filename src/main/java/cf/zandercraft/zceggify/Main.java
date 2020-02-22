@@ -32,6 +32,7 @@ public final class Main extends JavaPlugin {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             getLogger().severe("Failed to initialize NMS hooks - This plugin may not be compatible with your server version");
             Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }
         getCommand("ZCEggify").setExecutor(new CommandZCEggify());
         logger = getLogger();
@@ -40,7 +41,6 @@ public final class Main extends JavaPlugin {
         eventManager = new EventManager();
         eventManager.initialize();
         getLogger().info(getDescription().getName() + " is now enabled!");
-
     }
 
     @Override
