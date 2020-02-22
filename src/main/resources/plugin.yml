@@ -8,3 +8,27 @@ depend: [WorldEdit]
 authors: [Zandercraft, WiseHollow]
 description: A Paper plugin that allows you to eggify mobs using a configurable item/projectile.
 website: https://github.com/Zandercraft/ZCEggify
+
+permissions:
+  ZCEggify.Admin:
+    description: Performs administrative tasks regarding ZCEggify.
+    default: op
+  ZCEggify.Catch.*:
+    description: Ability to capture all types of animals and monsters.
+    default: op
+  ZCEggify.Catch.Peaceful:
+    description: Ability to capture animals.
+    default: op
+  ZCEggify.Catch.Hostile:
+    description: Ability to capture monsters.
+    default: op
+  ZCEggify.NoCost:
+    description: Capture creatures without a cost.
+    default: op
+
+commands:
+  ZCEggify:
+    description: Performs administrative tasks regarding ZCEggify.
+    usage: /<command> reload|update|version|spawn
+    permission: ZCEggify.admin
+    permission-message: You don't have <permission>
