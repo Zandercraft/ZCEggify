@@ -1,4 +1,15 @@
-# What projectile catches the creature.
+#
+#  ZZZZZ  CCCCC  EEEEEEE                 iii  fffff
+#     ZZ CC    C EE       gggggg  gggggg     ff    yy   yy
+#    ZZ  CC      EEEEE   gg   gg gg   gg iii fffff  yy   yy
+#   ZZ   CC    C EE      ggggggg ggggggg iii ff     yyyyyy
+#  ZZZZZ  CCCCC  EEEEEEE      gg      gg iii ff         yy
+#                         ggggg   ggggg             yyyyy
+#  Project: ZCEggify
+#  Authors: Zandercraft, WiseHollow
+#  Current Maintainer: Zandercraft
+#
+  # What projectile catches the creature.
 Projectile Catcher: EGG
 # Cost Mode: [ NONE, ITEM, VAULT ]
 Cost Mode: ITEM
