@@ -21,8 +21,8 @@ package cf.zandercraft.zceggify.jnbt;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.sk89q.worldedit.math.Vector3;
-import com.sk89q.worldedit.world.storage.InvalidFormatException;
+import cf.zandercraft.zceggify.math.Vector3;
+import cf.zandercraft.zceggify.world.storage.InvalidFormatException;
 
 import java.util.Map;
 
