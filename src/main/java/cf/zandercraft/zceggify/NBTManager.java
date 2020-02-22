@@ -546,13 +546,13 @@ public class NBTManager {
                 entityDetails.setInt("size", slime.getSize());
             case ZOMBIE_VILLAGER:
                 ZombieVillager zombieVillager = (ZombieVillager) livingEntity;
-                String profession = zombieVillager.getVillagerProfession().name();
-                entityDetails.setString("profession", profession);
+                String zprofession = zombieVillager.getVillagerProfession().name();
+                entityDetails.setString("profession", zprofession);
                 break;
             case PARROT:
                 Parrot parrot = (Parrot) livingEntity;
-                Parrot.Variant color = parrot.getVariant();
-                entityDetails.setString("variant", color.name());
+                Parrot.Variant pcolor = parrot.getVariant();
+                entityDetails.setString("variant", pcolor.name());
         }
 
         if (livingEntity instanceof Tameable) {
