@@ -175,7 +175,6 @@ public class NBTManager {
                 //1) Get basic villager data.
                 Villager villager = (Villager) livingEntity;
                 villager.setProfession(Villager.Profession.valueOf(entityDetails.getString("profession")));
-                villager.setRiches(entityDetails.getInt("riches"));
 
                 //2) Grab the recipe list.
                 NBTTagList recipeList = entityDetails.getList("recipes", ListType.COMPOUND.ordinal());
