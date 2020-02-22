@@ -164,7 +164,11 @@ public class NBTManager {
                 Rabbit rabbit = (Rabbit) livingEntity;
                 rabbit.setRabbitType(Rabbit.Type.valueOf(entityDetails.getString("rabbit type")));
                 break;
-            case ABSTRACTHORSE:
+            case DONKEY:
+            case MULE:
+            case SKELETON_HORSE:
+            case ZOMBIE_HORSE:
+            case HORSE:
                 AbstractHorse abstractHorse = (AbstractHorse) livingEntity;
                 abstractHorse.setJumpStrength(entityDetails.getDouble("jump strength"));
                 abstractHorse.setTamed(entityDetails.getBoolean("tamed"));
@@ -489,7 +493,11 @@ public class NBTManager {
             case RABBIT:
                 entityDetails.setString("rabbit type", ((Rabbit) livingEntity).getRabbitType().name());
                 break;
-            case ABSTRACTHORSE:
+            case DONKEY:
+            case MULE:
+            case SKELETON_HORSE:
+            case ZOMBIE_HORSE:
+            case HORSE:
                 AbstractHorse abstractHorse = (AbstractHorse) livingEntity;
                 double jumpStrength = abstractHorse.getJumpStrength();
                 double speed = livingEntity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
