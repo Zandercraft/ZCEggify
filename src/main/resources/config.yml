@@ -10,7 +10,8 @@
 #  Current Maintainer: Zandercraft
 #  Website: https://github.com/Zandercraft/ZCEggify
 #
-  # What projectile catches the creature.
+
+# What projectile catches the creature.
 Projectile Catcher: EGG
 # Cost Mode: [ NONE, ITEM, VAULT ]
 Cost Mode: ITEM
