@@ -3,8 +3,7 @@ version: ${project.version}
 main: cf.zandercraft.zceggify.Main
 api-version: '1.14'
 prefix: ZCEggify
-softdepend: [Vault, GriefPrevention, Towny]
-depend: [WorldEdit]
+softdepend: [Vault, GriefPrevention, Towny, WorldEdit]
 authors: [Zandercraft, WiseHollow]
 description: A Paper plugin that allows you to eggify mobs using a configurable item/projectile.
 website: https://github.com/Zandercraft/ZCEggify
