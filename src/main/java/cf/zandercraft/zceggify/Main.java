@@ -26,14 +26,14 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         saveDefaultConfig();
-        try {
+        /*try {
             String nmsVersion = Bukkit.getServer().getClass().getName().split("\\.")[3];
             nmsHook = (NMSHook) Class.forName("cf.zandercraft.zceggify.nms.NMS_" + nmsVersion).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             getLogger().severe("Failed to initialize NMS hooks - This plugin may not be compatible with your server version");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
-        }
+        }*/
         getCommand("ZCEggify").setExecutor(new CommandZCEggify());
         logger = getLogger();
         permissionManager = new PermissionManager();
