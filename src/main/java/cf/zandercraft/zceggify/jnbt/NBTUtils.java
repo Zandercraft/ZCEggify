@@ -21,8 +21,7 @@ package cf.zandercraft.zceggify.jnbt;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.sk89q.worldedit.math.Vector3;
-import com.sk89q.worldedit.world.storage.InvalidFormatException;
+import org.bukkit.util.Vector;
 
 import java.util.Map;
 
@@ -167,9 +166,13 @@ public final class NBTUtils {
      * @param listTag the list tag
      * @return a vector
      */
-    public static Vector3 toVector(ListTag listTag) {
+    public static Vector toVector(ListTag listTag) {
         checkNotNull(listTag);
-        return Vector3.at(listTag.asDouble(0), listTag.asDouble(1), listTag.asDouble(2));
+        return new Vector(
+                listTag.asDouble(0),
+                listTag.asDouble(1),
+                listTag.asDouble(2)
+        );
     }
 
     /**
@@ -179,15 +182,15 @@ public final class NBTUtils {
      * @param key the key to look for
      * @param expected the expected NBT class type
      * @return child tag
-     * @throws InvalidFormatException
+     * @throws IllegalStateException
      */
-    public static <T extends Tag> T getChildTag(Map<String, Tag> items, String key, Class<T> expected) throws InvalidFormatException {
+    public static <T extends Tag> T getChildTag(Map<String, Tag> items, String key, Class<T> expected) throws IllegalStateException {
         if (!items.containsKey(key)) {
-            throw new InvalidFormatException("Missing a \"" + key + "\" tag");
+            throw new IllegalStateException("Missing a \"" + key + "\" tag");
         }
         Tag tag = items.get(key);
         if (!expected.isInstance(tag)) {
-            throw new InvalidFormatException(key + " tag is not of tag type " + expected.getName());
+            throw new IllegalStateException(key + " tag is not of tag type " + expected.getName());
         }
         return expected.cast(tag);
     }
