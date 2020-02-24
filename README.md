@@ -33,3 +33,4 @@ Payment for capturing a mob can be either in the form of items or money. See the
 A big thanks to
 - WiseHollow - Original Developer
 - The WorldEdit team - Some classes were used from the WorldEdit plugin.
+- willies952002 - without his generous giving of time and help, this would never have been possible.
