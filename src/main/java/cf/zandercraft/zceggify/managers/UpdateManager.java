@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class UpdateManager {
-    private static final String urlToMobCapture = "https://johnbrooks.net/spigot_plugins/downloads/1.13.1/MobCapture.jar";
+    private static final String urlToMobCapture = "https://github.com/Zandercraft/ZCEggify/archive/master.zip";
 
     public static boolean isUpdateAvailable() {
         int remoteSize = UpdateManager.getFileSize(urlToMobCapture);

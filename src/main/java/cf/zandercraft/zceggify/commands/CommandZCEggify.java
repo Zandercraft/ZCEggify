@@ -30,7 +30,7 @@ public class CommandZCEggify implements CommandExecutor {
                 Player player = (Player) sender;
                 TextComponent message = new TextComponent(Language.PREFIX + ChatColor.UNDERLINE + "Click here " +
                         ChatColor.RESET + "" + ChatColor.BLUE + "to see my profile and my other plugins! " + Main.plugin.getName() + "!");
-                message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/members/wisehollow.14804/"));
+                message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Zandercraft"));
                 player.spigot().sendMessage(message);
             } else
                 sender.sendMessage(ChatColor.BLUE + Main.plugin.getName() + " was created by Zandercraft and WiseHollow.");
@@ -49,11 +49,11 @@ public class CommandZCEggify implements CommandExecutor {
                         Player player = (Player) sender;
                         TextComponent message = new TextComponent(Language.PREFIX + ChatColor.UNDERLINE + "Click here " +
                                 ChatColor.RESET + "" + ChatColor.BLUE + "to get the latest version of " + Main.plugin.getName() + "!");
-                        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://goo.gl/yiWQnT"));
+                        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Zandercraft/ZCEggify"));
                         player.spigot().sendMessage(message);
                     }
                     else
-                        sender.sendMessage("Go to https://goo.gl/yiWQnT to get the latest version of " + Main.plugin.getName() + "!");
+                        sender.sendMessage("Go to https://github.com/Zandercraft/ZCEggify to get the latest version of " + Main.plugin.getName() + "!");
                 }
                 else
                     sender.sendMessage(Language.PREFIX + "Everything is up-to-date.");
