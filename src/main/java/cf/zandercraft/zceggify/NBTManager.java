@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class NBTManager {
     public enum ListType {
-        END, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, BYTE_ARRAY, STRING, LIST, COMPOUND, INT_ARRAY
+        END, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, BYTE_ARRAY, STRING, LIST, COMPOUND, INT_ARRAY, LONG_ARRAY
     }
 
     public static boolean isSpawnEgg(ItemStack itemStack) {
