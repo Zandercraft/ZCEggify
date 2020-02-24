@@ -51,4 +51,17 @@ public class NMS_v1_15_R1 implements NMSHook {
         }
         return null;
     }
+
+    public static CompoundTag convertToAPI(NBTTagCompound compound) {
+        try {
+            ByteArrayInputStream bin = new ByteArrayInputStream(compound.toString().getBytes(StandardCharsets.UTF_8));
+            NBTInputStream nbtIn = new NBTInputStream(bin);
+            Tag tag = nbtIn.readNamedTag().getTag();
+            return (tag instanceof CompoundTag) ? (CompoundTag) tag : null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
