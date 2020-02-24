@@ -47,6 +47,7 @@ public class NMS_v1_15_R1 implements NMSHook {
             baos.close();
             return NBTCompressedStreamTools.readNBT(new DataInputStream(new ByteArrayInputStream(baos.toByteArray())));
         } catch (IOException e) {
+            Main.plugin.getLogger().severe("Failed to Convert CompoundTag to NBTTagCompound");
             e.printStackTrace();
         }
         return null;
@@ -59,6 +60,7 @@ public class NMS_v1_15_R1 implements NMSHook {
             Tag tag = nbtIn.readNamedTag().getTag();
             return (tag instanceof CompoundTag) ? (CompoundTag) tag : null;
         } catch (IOException e) {
+            Main.plugin.getLogger().severe("Failed to Convert NBTTagCompound to CompoundTag");
             e.printStackTrace();
         }
         return null;
