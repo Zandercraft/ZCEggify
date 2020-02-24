@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-public class NMS_1_15_R1 implements NMSHook {
+public class NMS_v1_15_R1 implements NMSHook {
 
     @Override
     public boolean isSpawnEgg(ItemStack item) {
