@@ -120,6 +120,11 @@ public class NBTManager {
             }
         }
 
+        if (livingEntity instanceof Sittable) {
+            Sittable sittable = (Sittable) livingEntity;
+            sittable.setSitting(entityDetails.getBoolean("sitting"));
+        }
+
         switch (livingEntity.getType()) {
             case WOLF:
                 // Is a wolf

@@ -8,6 +8,8 @@ import cf.zandercraft.zceggify.commands.CommandZCEggify;
 import cf.zandercraft.zceggify.events.EventManager;
 import cf.zandercraft.zceggify.managers.PermissionManager;
 import net.milkbowl.vault.economy.Economy;
+
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 public final class Main extends JavaPlugin {
@@ -30,6 +32,7 @@ public final class Main extends JavaPlugin {
             String nmsVersion = Bukkit.getServer().getClass().getName().split("\\.")[3];
             nmsHook = (NMSHook) Class.forName("cf.zandercraft.zceggify.nms.NMS_" + nmsVersion).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
             getLogger().severe("Failed to initialize NMS hooks - This plugin may not be compatible with your server version");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
