@@ -349,6 +349,7 @@ public class NBTManager {
         return loreList;
     }
 
+    @Deprecated
     private static NBTTagList createNMSItemLore(final LivingEntity livingEntity) {
         final NBTTagList loreList = new NBTTagList();
 
