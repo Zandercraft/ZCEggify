@@ -19,7 +19,7 @@ Cost Mode: ITEM
 Cost Item: STICK
 Cost Amount: 1
 # When in VAULT mode, a player must have at least this amount of money.
-Cost Vault: 100
+Cost Vault: 10
 # In these worlds, you cannot capture or release creatures.
 Disabled Worlds: []
 # Should eggs take the color of the creature they belong to?
