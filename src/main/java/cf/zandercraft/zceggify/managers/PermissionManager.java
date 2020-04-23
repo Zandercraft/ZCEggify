@@ -4,8 +4,8 @@ import cf.zandercraft.zceggify.Main;
 import org.bukkit.entity.*;
 
 public class PermissionManager {
-    public final String NoCost = Main.plugin.getName() + ".NoCost";
-    public final String CatchPrefix = Main.plugin.getName() + ".Catch.";
+    public final String NoCost = "ZCEggify.NoCost";
+    public final String CatchPrefix = "ZCEggify.Catch.";
     public final String CatchPeaceful = "ZCEggify.Catch.Peaceful";
     public final String CatchHostile = "ZCEggify.Catch.Hostile";
 
